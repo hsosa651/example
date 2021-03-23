@@ -11,12 +11,19 @@ jobs:
   build:
 
     runs-on: self-hosted
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
     strategy:
       matrix:
         node-version: [12.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
+    - uses: act10ns/slack@v1
+      with:
+        status: starting
+        channel: '#pruebas-git-hub'
+      if: always()
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -25,12 +32,3 @@ jobs:
     - run: npm install
     - run: npm run build --if-present
 
-    - uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        SLACK_TITLE: Post Title
-        with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-          channel: '#pruebas-git-hub'
-        if: always()
