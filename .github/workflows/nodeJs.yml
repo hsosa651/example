@@ -12,6 +12,8 @@ jobs:
 
     runs-on: self-hosted
 
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     strategy:
       matrix:
         node-version: [12.x]
@@ -24,3 +26,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run build --if-present
+
+    - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: '#pruebas-git-hub'
+        if: always()
