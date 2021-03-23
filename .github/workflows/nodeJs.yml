@@ -12,8 +12,6 @@ jobs:
 
     runs-on: self-hosted
 
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     strategy:
       matrix:
         node-version: [12.x]
@@ -27,7 +25,10 @@ jobs:
     - run: npm install
     - run: npm run build --if-present
 
-    - uses: act10ns/slack@v1
+    - uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_TITLE: Post Title
         with:
           status: ${{ job.status }}
           steps: ${{ toJson(steps) }}
