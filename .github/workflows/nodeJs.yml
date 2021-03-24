@@ -25,6 +25,8 @@ jobs:
         channel: '#pruebas-git-hub'
       if: always()
     - uses: actions/checkout@v2
+    - name: Hello World
+        run: echo Hello, world!
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
