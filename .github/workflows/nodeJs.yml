@@ -43,3 +43,16 @@ jobs:
         steps: ${{ toJson(steps) }}
         channel: '#pruebas-git-hub'
       if: always()
+
+  enviroment_example:
+
+    runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      MENSAJE : Este mensaje es de una variable de entorno!!!!
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Variable de entorno
+        run: echo ${{ env.MENSAJE }}
