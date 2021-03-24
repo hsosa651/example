@@ -19,6 +19,7 @@ jobs:
         node-version: [12.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
+    - name: Envio de Notificacion Salck Estatus job Inicial
     - uses: act10ns/slack@v1
       with:
         status: starting
@@ -36,6 +37,7 @@ jobs:
     - run: npm install
     - run: npm run build --if-present
 
+    - name: Envio de Notificacion Salck Estatus job final
     - uses: act10ns/slack@v1
       with:
         status: ${{ job.status }}
