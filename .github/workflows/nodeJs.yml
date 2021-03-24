@@ -13,6 +13,7 @@ jobs:
     runs-on: self-hosted
     env:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      MENSAJE : Este mensaje es de una variable de entorno!!!!
 
     strategy:
       matrix:
@@ -26,8 +27,8 @@ jobs:
       if: always()
     - uses: actions/checkout@v2
 
-    - name: Hello World
-      run: echo Hello, world!
+    - name: Variable de entorno
+      run: echo ${{ env.MENSAJE }}
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
