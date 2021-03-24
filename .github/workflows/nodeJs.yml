@@ -8,12 +8,11 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build_example:
 
     runs-on: self-hosted
     env:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      MENSAJE : Este mensaje es de una variable de entorno!!!!
 
     strategy:
       matrix:
@@ -48,7 +47,6 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       MENSAJE : Este mensaje es de una variable de entorno!!!!
 
     steps:
